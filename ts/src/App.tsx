@@ -8,7 +8,7 @@ function App(props: { children?: number[] | string[] }) {
   function warnUser(): void {
     console.log("This is my warning message");
   }
-  let someValue: any = "111112222";
+  let someValue: any = "11111222211113333";
 
   let strLength: number = (someValue as string).length;
 
