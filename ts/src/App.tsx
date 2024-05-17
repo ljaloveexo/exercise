@@ -6,7 +6,7 @@ import "./App.css";;
 function App(props: { children?: number[] | string[] }) {
   const { children } = props;
   function warnUser(): void {
-    console.log("This is my warning message");
+    console.log("This is my warning message");;
   }
 
   let strLength: number = (someValue as string).length;
