@@ -1,14 +1,13 @@
 import React from "react";
 import logo from "./logo.svg";
 import PropTypes from "prop-types";
-import "./App.css";
+import "./App.css";;
 
 function App(props: { children?: number[] | string[] }) {
   const { children } = props;
   function warnUser(): void {
     console.log("This is my warning message");
   }
-  let someValue: any = "11111222211113333";
 
   let strLength: number = (someValue as string).length;
 
