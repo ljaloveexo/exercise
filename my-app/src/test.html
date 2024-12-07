@@ -1,0 +1,76 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SPA Router Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      nav {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a id="home">Home</a>
+      <a id="about">About</a>
+      <a id="contact">Contact</a>
+    </nav>
+
+    <div id="content"></div>
+
+    <script>
+      // 定义视图内容, 类似 path 和 component
+      const routes = {
+        home: "<h1>Home Page</h1><p>Welcome to the homepage!</p>",
+        about: "<h1>About Page</h1><p>Learn more about us.</p>",
+        contact: "<h1>Contact Page</h1><p>Contact us here.</p>",
+      };
+
+      // 渲染视图的函数
+      function renderView(view) {
+        const contentDiv = document.getElementById("content");
+        contentDiv.innerHTML = routes[view] || "<h1>404 - Page Not Found</h1>";
+      }
+
+      // 路由处理函数
+      function navigateTo(view) {
+        // 更新 URL
+        history.pushState({ view }, "", view); // 改变 url#?
+        renderView(view); // 并且手动调用 renderView 渲染对应的视图
+      }
+
+      //事件监听
+      document.getElementById("home").addEventListener("click", (e) => {
+        e.preventDefault(); // 阻止默认行为 navigateTo('home'); // 跳转到首页
+      });
+
+      document.getElementById("about").addEventListener("click", (e) => {
+        e.preventDefault();
+        // 改变 url
+        navigateTo("about"); // 跳转到关于页
+      });
+
+      document.getElementById("contact").addEventListener("click", (e) => {
+        e.preventDefault();
+        navigateTo("contact"); // 跳转到联系页
+      });
+
+      // url hash 部分改变会触发 window.onpopstate, 监听 popstate 事件以处理浏览器的后退和前进
+      window.onpopstate = (event) => {
+        // pushState 时存入的数据
+        if (event.state) {
+          console.log(event.state);
+          renderView(event.state.view); // 根据历史状态渲染视图
+        } else {
+          renderView("home"); // 默认渲染首页
+        }
+      };
+      console.log("onload ready", event);
+      // 初始渲染触发一次
+      renderView("home"); // 默认加载首页
+    </script>
+  </body>
+</html>
